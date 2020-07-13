@@ -18,6 +18,8 @@ public class HomePageTests extends BaseTests{
 	LoginPage loginPage;
 	ProdutoPage produtoPage;
 	
+	String nomeProduto_ProdutoPage;
+	
 	@Test
 	public void testContarProdutos_oitoProdutosDiferentes() 
 	{
@@ -44,7 +46,7 @@ public class HomePageTests extends BaseTests{
 		produtoPage = homePage.clicarProduto(indice);
 		
 		//nessa nova página, o produto é único e não uma coleção de valores
-		String nomeProduto_ProdutoPage= produtoPage.obterNomeProduto();
+		nomeProduto_ProdutoPage= produtoPage.obterNomeProduto();
 		String precoProduto_ProdutoPage  = produtoPage.obterPrecoProduto();
 		
 		assertThat(nomeProduto_HomePage.toUpperCase(), is(nomeProduto_ProdutoPage.toUpperCase()));
@@ -76,6 +78,8 @@ public class HomePageTests extends BaseTests{
 	{
 		String tamanhoProduto = "M";
 		String corProduto = "Black";
+		String precoProdutoString, subtotalProdutoString;
+		Double precoProduto, subtotalProduto, subTotalCalculado;
 		
 		int quantidadeProduto = 2;
 		
@@ -106,7 +110,22 @@ public class HomePageTests extends BaseTests{
 		//Validações
 		assertTrue(modalProdutoPage.obterMensagemProdutoAdicionado().endsWith("Product successfully added to your shopping cart"));
 		
+		assertThat(modalProdutoPage.obterDescricaoProduto().toUpperCase(), is(nomeProduto_ProdutoPage.toUpperCase()));
 		
+		//converter o valor unitário do produto
+		precoProdutoString = modalProdutoPage.obterPrecoProduto().replace("$", "");
+		precoProduto = Double.parseDouble(precoProdutoString);
+		
+		subtotalProdutoString = modalProdutoPage.obterSubTotal().replace("$", "");
+		subtotalProduto = Double.parseDouble(subtotalProdutoString);
+		
+		//Calcular subtotal
+		subTotalCalculado = precoProduto * quantidadeProduto;
+		
+		assertThat(modalProdutoPage.obterTamanhoProduto(), is(tamanhoProduto));
+		assertThat(Integer.parseInt(modalProdutoPage.obterQuantidadeProduto()), is(quantidadeProduto));
+		assertThat(modalProdutoPage.obterCorProduto(), is(corProduto));
+		assertThat(subtotalProduto, is(subTotalCalculado));
 	}
 
 }
