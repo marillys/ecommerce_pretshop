@@ -13,6 +13,7 @@ import pages.CarrinhoPage;
 import pages.CheckoutPage;
 import pages.LoginPage;
 import pages.ModalProdutoPage;
+import pages.PedidoPage;
 import pages.ProdutoPage;
 import util.Funcoes;
 
@@ -23,8 +24,11 @@ public class HomePageTests extends BaseTests{
 	ModalProdutoPage modalProdutoPage; 
 	CarrinhoPage carrinhoPage;
 	CheckoutPage checkoutPage;
+	PedidoPage pedidoPage;
 	
 	String nomeProduto_ProdutoPage;
+	
+	String email = "marilia@alves.com";
 	
 	String esperado_nomeProduto = "Hummingbird printed t-shirt";
 	Double esperado_precoProduto = 19.12;
@@ -75,6 +79,7 @@ public class HomePageTests extends BaseTests{
 		assertThat(precoProduto_HomePage, is(precoProduto_ProdutoPage));
 	}
 	
+	
 	@Test
 	public void testLoginComSucesso_UsuarioLogado() 
 	{
@@ -82,7 +87,7 @@ public class HomePageTests extends BaseTests{
 		loginPage = homePage.clicarBotaoSignIn();
 		
 		//preencher login
-		loginPage.preencherEmail("marilia@alves.com");
+		loginPage.preencherEmail(email);
 		loginPage.preencherPassword("123456");
 		
 		//logar
@@ -231,4 +236,25 @@ public class HomePageTests extends BaseTests{
 		
 		assertTrue(checkoutPage.estaSelecionadoCheckboxIAgree());
 	}
+	
+	@Test
+	public void finalizarPedido_pedidoFinalizadoComSucesso() 
+	{
+		IrParaCheckout_FreteMeioPagamentoEnderecoListadosOk();
+		
+		//teste
+		//clicar no botão que confirma o pedido
+		pedidoPage = checkoutPage.clicarBotaoConfirmaPedido();
+		
+		
+		//Validar valores da tela
+		assertTrue(pedidoPage.obter_textoPedidoConfirmado().toUpperCase().endsWith("YOUR ORDER IS CONFIRMED"));
+		
+		assertThat(pedidoPage.obter_email(), is(email));
+		assertThat(pedidoPage.obter_totalProdutos(), is(esperado_subtotalProduto));
+		assertThat(pedidoPage.obter_totalTaxIncl(), is(esperado_totalTaxIncTotal));
+		assertThat(pedidoPage.obter_metodoPagamento(), is("check"));	
+	}
+	
+	
 }
