@@ -1,0 +1,3 @@
+nomeTeste;email;password;nomeUsuario;resultado
+loginValido;marilia@alves.com;123456;Marilia Alves;positivo
+loginInvalido;marilia@alves.com;145;Marilia Alves;negativo

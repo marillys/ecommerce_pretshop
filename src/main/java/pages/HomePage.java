@@ -17,6 +17,7 @@ public class HomePage {
 	private By produtos = By.className("product-description");
 	private By descricoesDosProdutos = By.cssSelector(".product-description a");
 	private By precoDosProdutos = By.className("price");
+	private By botaoSignOut = By.cssSelector("a.logout");
 	
 	//usuario logado
 	private By usuarioLogado = By.cssSelector("#_desktop_user_info span.hidden-sm-down");
@@ -81,5 +82,10 @@ public class HomePage {
 	{
 		//compara o login com o nome passado por parametro
 		return texto.contentEquals(driver.findElement(usuarioLogado).getText());
+	}
+	
+	public void clicarBotaoSignOut() 
+	{
+		driver.findElement(botaoSignOut).click();
 	}
 }
