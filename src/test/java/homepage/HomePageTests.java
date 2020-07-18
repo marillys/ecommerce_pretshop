@@ -119,6 +119,8 @@ public class HomePageTests extends BaseTests {
 		// validar o usuario logado com a variavel esperado_loginOk
 		assertThat(homePage.estaLogado(nomeUsuario), is(esperado_loginOk));
 
+		capturarTela(nomeTeste, resultado);
+		
 		//deslogar quando o resultado esperado for positivo
 		if(esperado_loginOk)
 			homePage.clicarBotaoSignOut();

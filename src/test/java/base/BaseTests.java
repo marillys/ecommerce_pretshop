@@ -1,10 +1,16 @@
 package base;
 
+import java.io.File;
+
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+
+import com.google.common.io.Files;
 
 import pages.HomePage;
 
@@ -36,5 +42,21 @@ public class BaseTests {
 	public static void finalizar() 
 	{
 		driver.quit();
+	}
+	
+	public void capturarTela(String nomeTeste, String resultado)
+	{
+		var camera = (TakesScreenshot) driver;
+		
+		File capturadeTela = camera.getScreenshotAs(OutputType.FILE);
+		
+		try {
+
+			Files.move(capturadeTela, new File("resources/screenshots/"+nomeTeste + "_"+resultado+".png"));	
+					
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 	}
 }
