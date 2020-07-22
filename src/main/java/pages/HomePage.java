@@ -67,7 +67,7 @@ public class HomePage {
 	{
 		driver.findElements(descricoesDosProdutos).get(indice).click();
 		
-		//retornar uma nova classe, passando o driver de conex�o
+		//retornar uma nova classe, passando o driver de conex�o
 		return new ProdutoPage(driver);
 	}
 	
@@ -87,5 +87,23 @@ public class HomePage {
 	public void clicarBotaoSignOut() 
 	{
 		driver.findElement(botaoSignOut).click();
+	}
+
+	public void carregarPaginaInicial() {
+		driver.get("https://marcelodebittencourt.com/demoprestashop/");
+		
+		
+	}
+
+	public String obterTituloPagina() {
+		return driver.getTitle();
+		
+	}
+
+	public boolean estaLogado() {
+		//compara o login com o Sign in
+		//Nega - Se aparecer a palavra Sign in quer dizer que não está logado
+		return !"Sign in".contentEquals(driver.findElement(usuarioLogado).getText());
+			
 	}
 }
