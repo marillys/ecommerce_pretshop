@@ -1,10 +1,15 @@
 package steps;
 
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
+import com.google.common.io.Files;
+
 import static org.hamcrest.Matchers.*;
 
+import java.io.File;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -15,6 +20,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
+import io.cucumber.java.Scenario;
 import io.cucumber.java.pt.Dado;
 import io.cucumber.java.pt.Entao;
 import io.cucumber.java.pt.Quando;
@@ -162,8 +168,32 @@ public class ComprarProdutoSteps {
 		assertThat(subtotalEncontrado, is(subTotalCalculadoEsperado));
 	
 	}
+	@After(order = 1)
+	public void capturarTela(Scenario scenario)
+	{
+//		Scenario é uma classe do cucumber capaz de identificar o caso de teste
 
-	@After
+		System.out.println("Captura de tela");
+		var camera = (TakesScreenshot) driver;
+		
+		File capturadeTela = camera.getScreenshotAs(OutputType.FILE);
+		
+		String scenarioId = scenario.getId().substring(scenario.getId().lastIndexOf(".feature:")+9);
+		try {
+
+			Files.move(capturadeTela, new File("resources/screenshots/"+
+			scenario.getName() //Nome do caso de teste
+			+ "_"+scenarioId
+			+"_"+scenario.getStatus()//Status do teste
+			+".png"));	
+					
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+	//Números mais altos rodam primeiro
+	@After(order = 0)
 	public static void finalizar() {
 		driver.quit();
 	}
