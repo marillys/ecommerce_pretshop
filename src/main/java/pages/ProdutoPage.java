@@ -11,6 +11,7 @@ import org.openqa.selenium.support.ui.Select;
 public class ProdutoPage {
 	private WebDriver driver;
 	
+	//itens da tela
 	private By nomeProduto = By.className("h1");
 	private By precoProduto = By.cssSelector(".current-price span:nth-child(1)");
 	private By tamanhoProduto = By.id("group_1");
@@ -41,11 +42,11 @@ public class ProdutoPage {
 	public List<String> obterOpcoesSelecionadas()
 	{
 		List<WebElement> elementosSelecionados = 
-		encontrarDropdownSize().getAllSelectedOptions();
+				encontrarDropdownSize().getAllSelectedOptions();
 		
 		List<String> listaOpcoesSelecionadas = new ArrayList<String>();
 		
-		//armazenar o texto das opções
+		//armazenar o texto das opï¿½ï¿½es
 		for(WebElement elemento: elementosSelecionados) 
 		{
 			listaOpcoesSelecionadas.add(elemento.getText());

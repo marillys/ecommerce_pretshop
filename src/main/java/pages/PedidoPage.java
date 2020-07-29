@@ -9,6 +9,7 @@ public class PedidoPage {
 	
 	private WebDriver driver;
 	
+	//itens na tela
 	private By textoPedidoConfirmado = By.cssSelector("#content-hook_order_confirmation h3");
 	private By email = By.cssSelector("#content-hook_order_confirmation p");
 	private By totalProdutos = By.cssSelector("div.order-confirmation-table div.order-line div.row div.bold");
@@ -27,6 +28,7 @@ public class PedidoPage {
 	
 	public String obter_email() 
 	{
+		//retira textos secundarios e retira apenas o importante, o email
 		String texto = driver.findElement(email).getText();
 		
 		texto = Funcoes.removeTexto(texto, "An email has been sent to the ");

@@ -7,6 +7,7 @@ public class CarrinhoPage {
 
 	private WebDriver driver;
 
+	//itens da tela
 	private By nomeProduto = By.cssSelector("div.product-line-info a");
 	private By precoProduto = By.cssSelector("span.price");
 	private By tamanhoProduto = By
@@ -84,5 +85,4 @@ public class CarrinhoPage {
 		
 		return new CheckoutPage(driver);
 	}
-
 }

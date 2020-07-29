@@ -18,45 +18,40 @@ public class BaseTests {
 
 	private static WebDriver driver;
 	protected HomePage homePage;
-	
-	//instanciar o driver
+
+	// instanciar o driver
 	@BeforeAll
-	public static void inicializar() 
-	{
-		System.setProperty("webdriver.chrome.driver", 
-				"C:\\driversExternos\\chromedriver\\83\\chromedriver.exe");
-		
+	public static void inicializar() {
+		System.setProperty("webdriver.chrome.driver", "C:\\driversExternos\\chromedriver\\83\\chromedriver.exe");
+
 		driver = new ChromeDriver();
 	}
-	
+
+	// navegar até a página inicial
 	@BeforeEach
-	public void carregarPaginaInicial() 
-	{
+	public void carregarPaginaInicial() {
 		driver.get("https://marcelodebittencourt.com/demoprestashop/");
 
-		//criaruma nova homePage criando um driver
+		// criaruma nova homePage criando um driver
 		homePage = new HomePage(driver);
 	}
-	
+
 	@AfterAll
-	public static void finalizar() 
-	{
+	public static void finalizar() {
 		driver.quit();
 	}
-	
-	public void capturarTela(String nomeTeste, String resultado)
-	{
+
+	public void capturarTela(String nomeTeste, String resultado) {
 		var camera = (TakesScreenshot) driver;
-		
+
 		File capturadeTela = camera.getScreenshotAs(OutputType.FILE);
-		
+
 		try {
 
-			Files.move(capturadeTela, new File("resources/screenshots/"+nomeTeste + "_"+resultado+".png"));	
-					
+			Files.move(capturadeTela, new File("resources/screenshots/" + nomeTeste + "_" + resultado + ".png"));
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
 	}
 }

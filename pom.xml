@@ -45,10 +45,5 @@
 			<artifactId>cucumber-junit</artifactId>
 			<version>${cucumber.version}</version>
 		</dependency>
-
-
-
-
-
 	</dependencies>
 </project>

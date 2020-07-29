@@ -5,6 +5,7 @@ import org.junit.runner.RunWith;
 import io.cucumber.junit.Cucumber;
 import io.cucumber.junit.CucumberOptions;
 
+//Executa os passos e salva o resultados em relatórios com formato html, json, xml
 @RunWith(Cucumber.class)
 @CucumberOptions(
 		features = "src\\test\\resources\\features\\comprarProduto.feature",

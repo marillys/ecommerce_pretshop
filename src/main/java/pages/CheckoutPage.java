@@ -7,6 +7,7 @@ public class CheckoutPage {
 
 	WebDriver driver;
 
+	//itens da tela
 	private By totalTaxIncTotal = By.cssSelector("div.cart-total span.value");
 	private By nomeCliente = By.cssSelector("div.address");
 	private By botaoContinueAddress = By.name("confirm-addresses");

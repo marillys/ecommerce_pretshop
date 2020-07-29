@@ -21,6 +21,7 @@ import util.Funcoes;
 
 public class HomePageTests extends BaseTests {
 
+	//novos objetos
 	LoginPage loginPage;
 	ProdutoPage produtoPage;
 	ModalProdutoPage modalProdutoPage;
@@ -69,7 +70,7 @@ public class HomePageTests extends BaseTests {
 
 		produtoPage = homePage.clicarProduto(indice);
 
-		// nessa nova página, o produto é único e não uma coleção de valores
+		// nessa nova pagina, o produto e unico e nao uma colecao de valores
 		nomeProduto_ProdutoPage = produtoPage.obterNomeProduto();
 		String precoProduto_ProdutoPage = produtoPage.obterPrecoProduto();
 
@@ -79,7 +80,7 @@ public class HomePageTests extends BaseTests {
 
 	@Test
 	public void testLoginComSucesso_UsuarioLogado() {
-		// Clicar no botão sign In na home page
+		// Clicar no botï¿½o sign In na home page
 		loginPage = homePage.clicarBotaoSignIn();
 
 		// preencher login
@@ -92,15 +93,16 @@ public class HomePageTests extends BaseTests {
 		// validar o usuario logado
 		assertThat(homePage.estaLogado("Marilia Alves"), is(true));
 
-		// retornar para a página inicial
+		// retornar para a pï¿½gina inicial
 		carregarPaginaInicial();
 	}
 
+	//usando arquivo csv contendo massa de testes
 	@ParameterizedTest
 	@CsvFileSource(resources = "/massaTeste_Login.csv", numLinesToSkip = 1, delimiter = ';')
 	public void testLogin_UsuarioLogadoComDadosValidos(String nomeTeste, String email, String password,
 			String nomeUsuario, String resultado) {
-		// Clicar no botão sign In na home page
+		// Clicar no botï¿½o sign In na home page
 		loginPage = homePage.clicarBotaoSignIn();
 
 		// preencher login com dados da planilha/dados do parametro
@@ -125,7 +127,7 @@ public class HomePageTests extends BaseTests {
 		if(esperado_loginOk)
 			homePage.clicarBotaoSignOut();
 		
-		// retornar para a página inicial
+		// retornar para a pï¿½gina inicial
 		carregarPaginaInicial();
 	}
 
@@ -138,8 +140,7 @@ public class HomePageTests extends BaseTests {
 
 		int quantidadeProduto = 2;
 
-		// Pré-condição
-		// caso não esteja logado, fará o login
+		// caso nao esteja logado, farï¿½ o login
 		if (!homePage.estaLogado("Marilia Alves")) {
 			testLoginComSucesso_UsuarioLogado();
 		}
@@ -155,25 +156,14 @@ public class HomePageTests extends BaseTests {
 		produtoPage.selecionarCorPreta();
 		produtoPage.alterarQuantidade(quantidadeProduto);
 
-		// Clicar no botão Add Cart
+		// Clicar no botï¿½o Add Cart
 		modalProdutoPage = produtoPage.clicarBotaoAddToCart();
 
-		/*
-		 * assertThat(modalProdutoPage.obterMensagemProdutoAdicionado(),
-		 * is("Product successfully added to your shopping cart"));
-		 */
-
-		// Validações
+		// Validaï¿½ï¿½es
 		assertTrue(modalProdutoPage.obterMensagemProdutoAdicionado()
 				.endsWith("Product successfully added to your shopping cart"));
 
 		assertThat(modalProdutoPage.obterDescricaoProduto().toUpperCase(), is(nomeProduto_ProdutoPage.toUpperCase()));
-
-		// converter o valor unitário do produto
-		/*
-		 * precoProdutoString = modalProdutoPage.obterPrecoProduto().replace("$", "");
-		 * precoProduto = Double.parseDouble(precoProdutoString);
-		 */
 
 		precoProduto = Funcoes.removeCifraoDevolveDouble(modalProdutoPage.obterPrecoProduto());
 
@@ -191,36 +181,11 @@ public class HomePageTests extends BaseTests {
 
 	@Test
 	public void testIrParaCarrinho_InformacoesPersistidas() {
-		// --Pré condiçoes
+		// --Prï¿½ condiï¿½oes
 		// incluir produto no carrinho
 		testIncluirProdutoNoCarrinho_ProdutoIncluidoComSucesso();
 
 		carrinhoPage = modalProdutoPage.clicarBotaoProceedToCheckout();
-
-		/*
-		 * System.out.println(carrinhoPage.obter_nomeProduto());
-		 * System.out.println(Funcoes.removeCifraoDevolveDouble(carrinhoPage.
-		 * obter_precoProduto()));
-		 * System.out.println(carrinhoPage.obter_tamanhoProduto());
-		 * System.out.println(carrinhoPage.obter_corProduto());
-		 * System.out.println(Integer.parseInt(carrinhoPage.
-		 * obter_input_quantidadeProduto()));
-		 * System.out.println(Funcoes.removeCifraoDevolveDouble(carrinhoPage.
-		 * obter_subTotalProduto()));
-		 * 
-		 * System.out.println(Funcoes.removeTextoItemsDevolveInt(carrinhoPage.
-		 * obter_numeroItensTotal()));
-		 * System.out.println(Funcoes.removeCifraoDevolveDouble(carrinhoPage.
-		 * obter_subtotalTotal()));
-		 * System.out.println(Funcoes.removeCifraoDevolveDouble(carrinhoPage.
-		 * obter_shippingTotal()));
-		 * System.out.println(Funcoes.removeCifraoDevolveDouble(carrinhoPage.
-		 * obter_totalTaxExclTotal()));
-		 * System.out.println(Funcoes.removeCifraoDevolveDouble(carrinhoPage.
-		 * obter_totalTaxIncTotal()));
-		 * System.out.println(Funcoes.removeCifraoDevolveDouble(carrinhoPage.
-		 * obter_taxesTotal()));
-		 */
 
 		// validar elementos da tela
 		assertThat(carrinhoPage.obter_nomeProduto(), is(esperado_nomeProduto));
@@ -241,7 +206,6 @@ public class HomePageTests extends BaseTests {
 		assertThat(Funcoes.removeCifraoDevolveDouble(carrinhoPage.obter_totalTaxIncTotal()),
 				is(esperado_totalTaxIncTotal));
 		assertThat(Funcoes.removeCifraoDevolveDouble(carrinhoPage.obter_taxesTotal()), is(esperado_taxesTotal));
-
 	}
 
 	@Test
@@ -252,6 +216,7 @@ public class HomePageTests extends BaseTests {
 
 		assertThat(Funcoes.removeCifraoDevolveDouble(checkoutPage.obter_totalTaxIncTotal()),
 				is(esperado_totalTaxIncTotal));
+		
 		// assertThat(checkoutPage.obter_nomeCliente(), is(esperado_nomeCliente));
 		assertTrue(checkoutPage.obter_nomeCliente().startsWith(esperado_nomeCliente));
 
@@ -266,7 +231,7 @@ public class HomePageTests extends BaseTests {
 		// clicar no botao continue
 		checkoutPage.clicarBotaoContinueShipping();
 
-		// Selecionar opção "pay by check"
+		// Selecionar opï¿½ï¿½o "pay by check"
 		checkoutPage.selecionarRadioPayByCheck();
 
 		String encontrado_amountPayByCheck = checkoutPage.obter_amontPayByCheck();
@@ -276,7 +241,7 @@ public class HomePageTests extends BaseTests {
 		// validar valor do cheque
 		assertThat(encontrado_amountPayByCheck_Double, is(esperado_totalTaxIncTotal));
 
-		// clicar na opção "I agree"
+		// clicar na opï¿½ï¿½o "I agree"
 		checkoutPage.selecionarCheckboxIAgree();
 
 		assertTrue(checkoutPage.estaSelecionadoCheckboxIAgree());
@@ -287,7 +252,7 @@ public class HomePageTests extends BaseTests {
 		testIrParaCheckout_FreteMeioPagamentoEnderecoListadosOk();
 
 		// teste
-		// clicar no botão que confirma o pedido
+		// clicar no botï¿½o que confirma o pedido
 		pedidoPage = checkoutPage.clicarBotaoConfirmaPedido();
 
 		// Validar valores da tela
@@ -298,5 +263,4 @@ public class HomePageTests extends BaseTests {
 		assertThat(pedidoPage.obter_totalTaxIncl(), is(esperado_totalTaxIncTotal));
 		assertThat(pedidoPage.obter_metodoPagamento(), is("check"));
 	}
-
 }

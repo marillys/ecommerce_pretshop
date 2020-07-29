@@ -13,6 +13,7 @@ public class HomePage {
 	
 	List<WebElement> listaProdutos = new ArrayList();
 	
+	//itens da tela
 	private By textoProdutosNoCarrinho = By.className("cart-products-count");
 	private By produtos = By.className("product-description");
 	private By descricoesDosProdutos = By.cssSelector(".product-description a");
@@ -43,6 +44,7 @@ public class HomePage {
 	
 	public int obterQuantidadeProdutosNoCarrinho() 
 	{
+		//obtem quantidade de itens, excluindo o texto desnecessario
 		String quantidadeProdutoNoCarrinho = driver.findElement(textoProdutosNoCarrinho).getText();
 		quantidadeProdutoNoCarrinho = quantidadeProdutoNoCarrinho.replace("(","");
 		quantidadeProdutoNoCarrinho = quantidadeProdutoNoCarrinho.replace(")","");
@@ -90,20 +92,16 @@ public class HomePage {
 	}
 
 	public void carregarPaginaInicial() {
-		driver.get("https://marcelodebittencourt.com/demoprestashop/");
-		
-		
+		driver.get("https://marcelodebittencourt.com/demoprestashop/");		
 	}
 
 	public String obterTituloPagina() {
-		return driver.getTitle();
-		
+		return driver.getTitle();		
 	}
 
 	public boolean estaLogado() {
 		//compara o login com o Sign in
 		//Nega - Se aparecer a palavra Sign in quer dizer que não está logado
-		return !"Sign in".contentEquals(driver.findElement(usuarioLogado).getText());
-			
+		return !"Sign in".contentEquals(driver.findElement(usuarioLogado).getText());			
 	}
 }

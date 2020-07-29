@@ -12,6 +12,7 @@ public class ModalProdutoPage {
 
 	private WebDriver driver;
 
+	//itens da tela
 	private By mensagemProdutoAdicionado = By.id("myModalLabel");
 	private By descricaoProduto = By.className("product-name");
 	private By precoProduto = By.cssSelector("div.modal-body p.product-price");
@@ -52,6 +53,7 @@ public class ModalProdutoPage {
 		if(driver.findElements(listaValoresInformados).size() == 3)
 			return driver.findElements(listaValoresInformados).get(1).getText();
 		else 
+			//quando o item não tem cores disponíveis
 			return "N/A";
 	}
 
@@ -61,8 +63,7 @@ public class ModalProdutoPage {
 			return driver.findElements(listaValoresInformados).get(2).getText();
 		
 		else
-			return driver.findElements(listaValoresInformados).get(1).getText();
-					
+			return driver.findElements(listaValoresInformados).get(1).getText();					
 	}
 
 	public String obterSubTotal() {
