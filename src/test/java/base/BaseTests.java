@@ -22,7 +22,7 @@ public class BaseTests {
 	// instanciar o driver
 	@BeforeAll
 	public static void inicializar() {
-		System.setProperty("webdriver.chrome.driver", "C:\\driversExternos\\chromedriver\\83\\chromedriver.exe");
+		System.setProperty("webdriver.chrome.driver", "C:\\driversExternos\\chromedriver\\85\\chromedriver.exe");
 
 		driver = new ChromeDriver();
 	}
