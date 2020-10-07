@@ -6,15 +6,12 @@ import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.testng.ITestResult;
 import org.testng.annotations.AfterClass;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
-import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
 import com.google.common.io.Files;
 
@@ -28,16 +25,15 @@ public class BaseTests2 {
 	static ExtentHtmlReporter reporter;
 	static ExtentReports extentxReporter;
 	static ExtentTest teste;
-	
+
 	// instanciar o driver
 	@BeforeClass
 	public static void inicializar() {
-		
-		reporter = new ExtentHtmlReporter("./relatorios/relatorio.htm");
-		extentxReporter = new ExtentReports();
-		
-		extentxReporter.attachReporter(reporter);
-		
+		/*
+		 * criarInstance();
+		 * 
+		 * extentxReporter.attachReporter(reporter);
+		 */
 		System.setProperty("webdriver.chrome.driver", "C:\\driversExternos\\chromedriver\\85\\chromedriver.exe");
 
 		driver = new ChromeDriver();
@@ -52,26 +48,9 @@ public class BaseTests2 {
 		homePage = new HomePage(driver);
 	}
 
-	@AfterMethod
-	public void preencherRelatorio(ITestResult testResult) 
-	{
-		teste = extentxReporter.createTest("TEST");
-		
-		teste.log(Status.PASS, "AVALIAÇÃO");
-		
-		teste = extentxReporter.createTest(testResult.getMethod().getMethodName());
-		
-		if(testResult.getStatus() == ITestResult.FAILURE)
-			teste.log(Status.FAIL, "FALHA");
-		else
-			teste.log(Status.PASS, "PASSOU");
-	}
 	@AfterClass
 	public static void finalizar() {
 		driver.quit();
-		
-		//Fecha o arquivo de relatório
-		extentxReporter.flush();
 	}
 
 	public void capturarTela(String nomeTeste, String resultado) {
@@ -85,6 +64,24 @@ public class BaseTests2 {
 
 		} catch (Exception e) {
 			e.printStackTrace();
+		}
+	}
+
+	public String capturarTela2(String nomeTeste, String resultado) {
+		var camera = (TakesScreenshot) driver;
+
+		File capturadeTela = camera.getScreenshotAs(OutputType.FILE);
+
+		try {
+
+			Files.move(capturadeTela, new File("resources/screenshots/" + nomeTeste + "_" + resultado + ".png"));
+
+			return "C:/Users/maril/OneDrive/Documentos/Projetos/ecommerce_pretshop/resources/screenshots/" + nomeTeste
+					+ "_" + resultado + ".png";
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "ERRO";
 		}
 	}
 }

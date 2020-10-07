@@ -1,19 +1,11 @@
 package homepage;
 
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import static org.hamcrest.Matchers.*;
 
-import org.testng.annotations.Test;
-
-import com.aventstack.extentreports.ExtentReports;
-import com.aventstack.extentreports.ExtentTest;
-import com.aventstack.extentreports.Status;
-import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
-import com.aventstack.extentreports.reporter.ExtentXReporter;
-
 import static org.hamcrest.MatcherAssert.assertThat;
 
-import base.BaseTests;
 import base.BaseTests2;
 import pages.CarrinhoPage;
 import pages.CheckoutPage;
@@ -21,8 +13,8 @@ import pages.LoginPage;
 import pages.ModalProdutoPage;
 import pages.PedidoPage;
 import pages.ProdutoPage;
-import util.Funcoes;
 
+@Listeners//(base.Listeners.class)
 public class HomePageTests2 extends BaseTests2 {
 
 	//novos objetos

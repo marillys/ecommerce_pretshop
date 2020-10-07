@@ -59,4 +59,11 @@
 		</dependency>
 		
 	</dependencies>
+	
+	<build>
+            <sourceDirectory>${basedir}/src</sourceDirectory>
+            <testSourceDirectory>${basedir}/src/test/java/base/Listeners.xml</testSourceDirectory>
+            <plugins>
+            </plugins>
+        </build>
 </project>
